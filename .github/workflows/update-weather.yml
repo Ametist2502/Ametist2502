@@ -23,8 +23,8 @@ jobs:
             echo "No changes to commit."
             exit 0
           else
-            git config user.name github-actions
-            git config user.email github-actions@github.com
+            git config user.name ametist2502
+            git config user.email whaleblue2002@gmail.com
             git add .
             git commit -m "update"
             git push origin main
