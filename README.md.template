@@ -1,1 +1,3 @@
 {{ formatTime .UpdatedAt }}
+
+/current.json
