@@ -1,4 +1,3 @@
-{{ "hourly-table" $todayWeather .HourlyWeathers }}
 
 {{ "daily-table" .Weathers }}
 
