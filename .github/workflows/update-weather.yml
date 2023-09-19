@@ -24,3 +24,20 @@ jobs:
           LOCATION="Hanoi"
           RESPONSE=$(curl -s "https://api.weatherapi.com/v1/current.json?q=$LOCATION&key=$API_KEY")
           echo "Weather Data: $RESPONSE"
+      - name: Update README.md
+        run: |
+          # Get the weather data from the previous step's output
+          WEATHER_DATA="${{ steps.fetch-weather.outputs.weatherData }}"
+          
+          # Update the README.md file with the weather information
+          echo "## Weather Information" > README.md
+          echo "```" >> README.md
+          echo "$WEATHER_DATA" >> README.md
+          echo "```" >> README.md
+          
+          # Commit the changes to the repository
+          git config --global user.name "ametist2502"
+          git config --global user.email "whaleblue2002@gmail.com"
+          git add README.md
+          git commit -m "Update weather information in README.md"
+          git push origin main
