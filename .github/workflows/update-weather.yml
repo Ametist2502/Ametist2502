@@ -2,7 +2,7 @@ name: WeatherAPI CI/CD
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Run every hour
+    - cron: '*/15 * * * *'  # Run every hour
 
 jobs:
   fetch-weather:
