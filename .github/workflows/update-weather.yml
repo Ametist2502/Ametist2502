@@ -1,32 +1,26 @@
-name: "Cronjob"
+name: WeatherAPI CI/CD
+
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '15 * * * *'
+    - cron: '0 * * * *'  # Run every hour
 
 jobs:
-  update-weather:
-    permissions: write-all
+  fetch-weather:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Generate README
-        uses: huantt/weather-forecast@v1.0.5
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
         with:
-          city: HaNoi
-          days: 7
-          weather-api-key: ${{ secrets.WEATHER_API_KEY }}
-          template-file: 'README.md.template'
-          out-file: 'README.md'
-      - name: Commit
+          go-version: 1.8 # Replace with your desired Go version
+
+      - name: Fetch Weather Data
         run: |
-          if git diff --exit-code; then
-            echo "No changes to commit."
-            exit 0
-          else
-            git config user.name github-actions
-            git config user.email github-actions@github.com
-            git add .
-            git commit -m "update"
-            git push origin main
-          fi
+          # Replace "YOUR_API_KEY" and "YOUR_LOCATION" with your API key and location
+          API_KEY=${{ secrets.WEATHER_API_KEY }}
+          LOCATION="Hanoi"
+          RESPONSE=$(curl -s "https://api.weatherapi.com/v1/current.json?q=$LOCATION&key=$API_KEY")
+          echo "Weather Data: $RESPONSE"
