@@ -1,4 +1,1 @@
-
-{{ "daily-table" .Weathers }}
-
 {{ formatTime .UpdatedAt }}
