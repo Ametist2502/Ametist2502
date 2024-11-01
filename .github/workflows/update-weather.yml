@@ -1,43 +1,31 @@
-name: WeatherAPI CI/CD
+name: Display Weather
 
 on:
   schedule:
-    - cron: '* * * * 1 *'  # Run every hour
+    - cron: '0 * * * *'  # Runs at the start of every hour
+  workflow_dispatch:      # Allows manual triggering of the workflow
 
 jobs:
-  fetch-weather:
+  get-weather:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.8 # Replace with your desired Go version
+      - name: Get weather information
+        env:
+          API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: |
+          # Set the city and units (metric for Celsius, imperial for Fahrenheit)
+          CITY="London"
+          UNITS="metric" # use "imperial" for Fahrenheit
 
-      - name: Fetch Weather Data
-        run: |
-          # Replace "YOUR_API_KEY" and "YOUR_LOCATION" with your API key and location
-          API_KEY=${{ secrets.WEATHER_API_KEY }}
-          LOCATION="Hanoi"
-          RESPONSE=$(curl -s "https://api.weatherapi.com/v1/current.json?q=$LOCATION&key=$API_KEY")
-          echo "Weather Data: $RESPONSE"
-      - name: Update README.md
-        run: |
-          # Get the weather data from the previous step's output
-          WEATHER_DATA="${{ steps.fetch-weather.outputs.weatherData }}"
-          
-          # Update the README.md file with the weather information
-          echo "## Weather Information" > README.md
-          echo "```" >> README.md
-          echo "$WEATHER_DATA" >> README.md
-          echo "```" >> README.md
-          
-          # Commit the changes to the repository
-          git config --global user.name "ametist2502"
-          git config --global user.email "whaleblue2002@gmail.com"
-          git add README.md
-          git commit -m "Update weather information in README.md"
-          git push origin main
+          # Call the weather API
+          response=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=${UNITS}&appid=${API_KEY}")
+
+          # Parse and display the weather information
+          temp=$(echo $response | jq '.main.temp')
+          weather=$(echo $response | jq -r '.weather[0].description')
+
+          echo "The current temperature in ${CITY} is ${temp}° and the weather is ${weather}."
