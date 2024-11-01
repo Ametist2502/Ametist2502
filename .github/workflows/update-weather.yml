@@ -5,6 +5,9 @@ on:
     - cron: '0 * * * *'  # Runs at the start of every hour
   workflow_dispatch:      # Allows manual triggering of the workflow
 
+permissions:
+  contents: write         # Ensure the workflow has write permissions
+
 jobs:
   get-weather:
     runs-on: ubuntu-latest
@@ -12,6 +15,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Install jq
+        run: sudo apt-get install jq
 
       - name: Get weather information
         env:
@@ -39,5 +45,5 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Update weather report in README"
+          git commit -m "Update weather report in README" || echo "No changes to commit"
           git push
