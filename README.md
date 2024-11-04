@@ -1,5 +1,2 @@
 <!-- WEATHER-START -->
-
-
-
 <!-- WEATHER-END -->
