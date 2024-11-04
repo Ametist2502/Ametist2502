@@ -1,5 +1,4 @@
 name: Display Weather
-
 on:
   schedule:
     - cron: '0 * * * *'  # Runs at the start of every hour
@@ -11,7 +10,6 @@ permissions:
 jobs:
   get-weather:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -24,26 +22,49 @@ jobs:
           API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: |
           CITY="Hanoi"
-          UNITS="metric" # use "imperial" for Fahrenheit
-
+          UNITS="metric"
+          
           # Call the weather API
           response=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=${UNITS}&appid=${API_KEY}")
-
+          
           # Parse weather information
           temp=$(echo $response | jq '.main.temp')
+          feels_like=$(echo $response | jq '.main.feels_like')
+          humidity=$(echo $response | jq '.main.humidity')
           weather=$(echo $response | jq -r '.weather[0].description')
-          timestamp=$(date)
-
-          # Prepare the new weather report text
-          weather_report="**${CITY}**: ${temp}°C, ${weather} (as of ${timestamp})"
-
-          # Replace the placeholder in README.md
-          sed -i "s|<!-- WEATHER_REPORT -->|$weather_report|" README.md
+          wind_speed=$(echo $response | jq '.wind.speed')
+          timestamp=$(date '+%Y-%m-%d %H:%M:%S %Z')
+          
+          # Create a more detailed weather report
+          weather_report="## 🌤 Weather Report for ${CITY}\n\n"
+          weather_report+="- Temperature: ${temp}°C\n"
+          weather_report+="- Feels like: ${feels_like}°C\n"
+          weather_report+="- Conditions: ${weather}\n"
+          weather_report+="- Humidity: ${humidity}%\n"
+          weather_report+="- Wind Speed: ${wind_speed} m/s\n"
+          weather_report+="\nLast updated: ${timestamp}"
+          
+          # Create a temporary file with the new content
+          awk -v report="$weather_report" '
+          /<!-- WEATHER-START -->/{
+            print $0
+            print report
+            skip=1
+            next
+          }
+          /<!-- WEATHER-END -->/{
+            skip=0
+          }
+          !skip{
+            print $0
+          }
+          ' README.md > README.md.tmp
+          mv README.md.tmp README.md
 
       - name: Commit changes
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Update weather report in README" || echo "No changes to commit"
+          git diff --quiet && git diff --staged --quiet || git commit -m "📊 Update weather report"
           git push
