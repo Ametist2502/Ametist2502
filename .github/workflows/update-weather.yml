@@ -1,5 +1,10 @@
 name: Display Weather
 on:
+  push:
+    branches:
+      - main
+    paths: 
+      - '*.md'
   schedule:
     - cron: '0 * * * *'  # Runs at the start of every hour
 
