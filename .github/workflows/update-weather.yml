@@ -6,7 +6,7 @@ on:
     paths: 
       - README.md
   schedule:
-    - cron: '5 * * * *'  # Runs at the start of every hour
+    - cron: '0 */4 * * *'  # Runs at the start of every hour
 
 permissions:
   contents: write         # Ensure the workflow has write permissions
