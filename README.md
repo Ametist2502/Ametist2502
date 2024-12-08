@@ -2,10 +2,10 @@
 ## 🌤 Weather Report for Hanoi
 
 - Temperature: 17°C
-- Feels like: 16.56°C
+- Feels like: 16.45°C
 - Conditions: overcast clouds
-- Humidity: 69%
-- Wind Speed: 5.33 m/s
+- Humidity: 65%
+- Wind Speed: 5.36 m/s
 
-Last updated: 2024-12-07 20:21:30 UTC
+Last updated: 2024-12-08 01:53:18 UTC
 <!-- WEATHER-END -->
