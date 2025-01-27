@@ -3,9 +3,9 @@
 
 - Temperature: 14°C
 - Feels like: 12.6°C
-- Conditions: scattered clouds
+- Conditions: broken clouds
 - Humidity: 44%
-- Wind Speed: 2.62 m/s
+- Wind Speed: 2.55 m/s
 
-Last updated: 2025-01-27 16:24:32 UTC
+Last updated: 2025-01-27 20:21:09 UTC
 <!-- WEATHER-END -->
