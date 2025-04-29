@@ -3,9 +3,9 @@
 
 - Temperature: 26°C
 - Feels like: 26°C
-- Conditions: scattered clouds
-- Humidity: 84%
-- Wind Speed: 3.08 m/s
+- Conditions: broken clouds
+- Humidity: 90%
+- Wind Speed: 2.63 m/s
 
-Last updated: 2025-04-29 12:48:48 UTC
+Last updated: 2025-04-29 16:27:58 UTC
 <!-- WEATHER-END -->
