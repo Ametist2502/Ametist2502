@@ -1,11 +1,11 @@
 <!-- WEATHER-START -->
 ## 🌤 Weather Report for Hanoi
 
-- Temperature: 34°C
-- Feels like: 41°C
-- Conditions: overcast clouds
-- Humidity: 63%
-- Wind Speed: 2.85 m/s
+- Temperature: 30°C
+- Feels like: 37°C
+- Conditions: scattered clouds
+- Humidity: 79%
+- Wind Speed: 3.56 m/s
 
-Last updated: 2025-08-12 08:31:58 UTC
+Last updated: 2025-08-12 12:50:28 UTC
 <!-- WEATHER-END -->
