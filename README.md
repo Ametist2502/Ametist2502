@@ -5,7 +5,7 @@
 - Feels like: 14.31°C
 - Conditions: overcast clouds
 - Humidity: 67%
-- Wind Speed: 3.62 m/s
+- Wind Speed: 3 m/s
 
-Last updated: 2026-01-05 12:56:25 UTC
+Last updated: 2026-01-05 16:32:28 UTC
 <!-- WEATHER-END -->
